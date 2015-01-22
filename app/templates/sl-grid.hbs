@@ -26,7 +26,7 @@
             <tr>
                 {{#each column in columns}}
                     {{#unless column.hidden}}
-                       {{render-component column.component cssClass=column.cssClass column=column row=row}}
+                       {{render-component column.component action="cellAction" cssClass=column.cssClass column=column row=row}}
                     {{/unless}}
                 {{/each}}
             </tr>
