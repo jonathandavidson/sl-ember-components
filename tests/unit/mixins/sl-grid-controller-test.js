@@ -2,12 +2,17 @@ import Ember from 'ember';
 import { test, moduleFor } from 'ember-qunit';
 import SlGridController from 'sl-ember-components/mixins/sl-grid-controller';
 
-var gridController;
+var gridController,
+    testAction;
 
 module( 'Unit - mixins:sl-grid-controller', {
     setup: function() {
+        testAction = sinon.spy();
         gridController = Ember.ArrayController.createWithMixins( SlGridController,
             {
+                actions: {
+                    testAction: testAction
+                },
                 gridDefinition: {
                     options: {
                     },
@@ -104,9 +109,13 @@ test( 'action: toggleColumnVisibility should toggle hidden property on column', 
 
 });
 
+test( 'action: cellAction sends actions to the ActionHandler', function(){
+    gridController.send( 'cellAction', 'testAction' );
+    ok( testAction.called, 'action name passed is called in the gridController' );
+});
+
 test( 'observer: initialize, calls loadGridDefinition', function(){
     ok( gridController.loadGridDefinition, 'loadGridDefinition was called after init');
-
 });
 
 test( 'observer: onColumnWidthsChange, gets fired after width change', function(){

@@ -79,6 +79,16 @@ export default Ember.Mixin.create( Ember.Evented, {
             }
 
             this.trigger( 'gridStateChanged' );
+        },
+
+        /**
+        * Send actions from grid cell components to the ActionHandler
+        *
+        * @param   {Ember.String} actionType - Name of the action to trigger
+        * @returns {void}
+        */
+        cellAction: function( actionType ) {
+            this.send( actionType );
         }
     },
 
